@@ -20,6 +20,7 @@ app.use(function(req, res, next) {
 });
 
 app.post('/morning', async (req, res) => {
+    console.log(JSON.stringify(req.body, undefined, 4))
     const {queryId, survey} = req.body;
 
     try {
@@ -44,10 +45,6 @@ app.post('/morning', async (req, res) => {
         })
         return res.status(500).json({})
     }
-
-
-
-    res.status(200)
 })
 
 app.listen(PORT, () => console.log(`Sever started on port ${PORT}`))
