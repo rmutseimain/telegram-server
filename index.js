@@ -30,7 +30,7 @@ app.post('/morning', async (req, res) => {
             id: queryId,
             title: 'Success Morning',
             input_message_content: {
-                message_text: survey
+                message_text: JSON.stringify(survey)
             }
         })
         return res.status(200).json({})
