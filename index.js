@@ -26,13 +26,18 @@ app.post('/morning', async (req, res) => {
 
     try {
 
+        let message = ''
+        survey.map(item => {
+            message += `${item.id}.${item.name} ${item.result} \n`
+        })
+        console.log(message)
 
         await bot.answerWebAppQuery(queryId, {
             type: 'article',
             id: queryId,
             title: 'Success Morning',
             input_message_content: {
-                message_text: JSON.stringify(survey)
+                message_text: message
             }
         })
         return res.status(200).json({})
