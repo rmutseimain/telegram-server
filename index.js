@@ -25,6 +25,8 @@ app.post('/morning', async (req, res) => {
     const {queryId, survey} = req.body;
 
     try {
+
+
         await bot.answerWebAppQuery(queryId, {
             type: 'article',
             id: queryId,
@@ -73,7 +75,12 @@ bot.on('message', async (msg) => {
         try {
             const data = JSON.parse(msg.web_app_data.data)
 
-            await bot.sendMessage(chatId,data)
+            let message = ''
+            data.map(item => {
+                message += `${item.id}.${item.name} ${item.result} \n`
+            })
+
+            await bot.sendMessage(chatId, message)
         } catch (e) {
             console.log(e)
         }
