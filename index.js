@@ -54,7 +54,8 @@ app.listen(PORT, () => console.log(`Sever started on port ${PORT}`))
 // bot
 bot.on('message', async (msg) => {
     const chatId = msg.chat.id;
-    console.log(JSON.stringify(msg, undefined, 4))
+    console.log(JSON.stringify(msg?.web_app_data, undefined, 4))
+    console.log(JSON.stringify(msg?.web_app_data?.data, undefined, 4))
 
 
     if (msg?.text === 'start') {
