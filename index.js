@@ -10,7 +10,7 @@ const cors = require('cors')
 const bot = new TelegramBot(TELEGRAM_TOKEN, { polling: true})
 const app = express()
 app.use(express.json())
-const PORT = 8081
+const PORT = 8080
 
 // server
 app.use(cors())
