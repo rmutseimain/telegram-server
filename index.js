@@ -1,4 +1,4 @@
-const TELEGRAM_TOKEN = '6748806833:AAHWB9az9q5kLEE4IDneG2-XXOlLqGIv7Jc';
+const TELEGRAM_TOKEN = '6748806833:AAHlzajMxLKXSsfJ08_1ppiRfSx-ssZ9csI';
 const webApp = 'https://poetic-manatee-162fdd.netlify.app'
 // const webApp = 'http://localhost"'
 
