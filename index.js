@@ -10,7 +10,7 @@ const cors = require('cors')
 const bot = new TelegramBot(TELEGRAM_TOKEN, { polling: true})
 const app = express()
 app.use(express.json())
-const PORT = 8080
+const PORT = 8081
 
 // server
 app.use(cors())
@@ -72,11 +72,7 @@ bot.on('message', async (msg) => {
         try {
             const data = JSON.parse(msg.web_app_data.data)
 
-            await bot.sendMessage(chatId,`Ваши данние: \n
-            Страна - ${data.country}\n 
-            Улица - ${data.street}\n 
-            Subject - ${data?.subject}\n`
-            )
+            await bot.sendMessage(chatId,data)
         } catch (e) {
             console.log(e)
         }
