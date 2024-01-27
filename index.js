@@ -67,7 +67,7 @@ app.post('/morning', upload.any(), async (req, res) => {
                 id: queryId,
                 photo_url: process.env.SERVER_HOST + '/' + req.files[0].path,
                 thumbnail_url: process.env.SERVER_HOST + '/' + req.files[0].path,
-                description: message
+                caption: message
             })
             console.log('Image is sent - ', response)
 
