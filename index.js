@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({
 const upload = multer({
     dest: 'files/', // Location where files will be saved
 });
-const PORT = 8080
+const PORT = 8082
 
 // server
 app.use(cors())
@@ -34,6 +34,7 @@ app.post('/morning', upload.any(), async (req, res) => {
     console.log(`body: ${JSON.stringify(req.body)}`);
     console.log(`files: ${JSON.stringify(req.files)}`);
     let {queryId, survey } = req.body;
+    let { files } = req.files;
 
     survey = JSON.parse(survey)
     try {
@@ -52,7 +53,18 @@ app.post('/morning', upload.any(), async (req, res) => {
                 message_text: message
             }
         })
+
+        if (files) {
+            await bot.answerWebAppQuery(queryId, {
+                type: 'photo',
+                id: queryId,
+                photo_url: files[0].path,
+                thumbnail_url: files[0].path
+            })
+        }
+
         return res.status(200).json({})
+
 
     } catch (e) {
         await bot.answerWebAppQuery(queryId, {
