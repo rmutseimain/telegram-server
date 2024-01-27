@@ -5,11 +5,20 @@ const webApp = 'https://poetic-manatee-162fdd.netlify.app'
 const TelegramBot = require('node-telegram-bot-api');
 const express = require('express')
 const cors = require('cors')
-
+const bodyParser = require("body-parser");
+const multer = require('multer');
 
 const bot = new TelegramBot(TELEGRAM_TOKEN, { polling: true})
 const app = express()
+
 app.use(express.json())
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+const upload = multer({
+    dest: 'files/', // Location where files will be saved
+});
 const PORT = 8080
 
 // server
@@ -20,9 +29,11 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.post('/morning', async (req, res) => {
-    console.log(JSON.stringify(req.body, undefined, 4))
-    const {queryId, survey} = req.body;
+app.post('/morning', upload.any(), async (req, res) => {
+
+    console.log(`body: ${JSON.stringify(req.body)}`);
+    console.log(`files: ${JSON.stringify(req.files)}`);
+    const {queryId, survey } = req.body;
 
     try {
 
