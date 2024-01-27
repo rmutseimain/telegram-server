@@ -33,8 +33,9 @@ app.post('/morning', upload.any(), async (req, res) => {
 
     console.log(`body: ${JSON.stringify(req.body)}`);
     console.log(`files: ${JSON.stringify(req.files)}`);
-    const {queryId, survey } = req.body;
+    let {queryId, survey } = req.body;
 
+    survey = JSON.parse(survey)
     try {
 
         let message = ''
