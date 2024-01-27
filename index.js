@@ -21,6 +21,7 @@ const upload = multer({
 });
 const PORT = 8080
 
+app.use('/files', express.static('files'));
 // server
 app.use(cors())
 app.use(function(req, res, next) {
@@ -54,12 +55,13 @@ app.post('/morning', upload.any(), async (req, res) => {
             }
         })
 
+        console.log(`TEST URL = ${process.env.SERVER_HOST + '/' + files[0].path}`)
         if (files) {
             await bot.answerWebAppQuery(queryId, {
                 type: 'photo',
                 id: queryId,
-                photo_url: files[0].path,
-                thumbnail_url: files[0].path
+                photo_url: process.env.SERVER_HOST + '/' + files[0].path,
+                thumbnail_url: process.env.SERVER_HOST + '/' + files[0].path,
             })
         }
 
