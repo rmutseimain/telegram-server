@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({
 const upload = multer({
     dest: 'files/', // Location where files will be saved
 });
-const PORT = 8082
+const PORT = 8080
 
 // server
 app.use(cors())
