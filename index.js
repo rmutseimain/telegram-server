@@ -58,7 +58,7 @@ app.post('/morning', upload.any(), async (req, res) => {
         //     }
         // })
 
-        console.log('Survey is sent - ', response)
+        // console.log('Survey is sent - ', response)
 
         console.log(`TEST URL = ${process.env.SERVER_HOST + '/' + req.files[0].path}`)
         if (req.files) {
