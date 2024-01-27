@@ -49,14 +49,14 @@ app.post('/morning', upload.any(), async (req, res) => {
         })
         console.log(message)
 
-        let response = await bot.answerWebAppQuery(queryId, {
-            type: 'article',
-            id: queryId,
-            title: 'Success Morning',
-            input_message_content: {
-                message_text: message
-            }
-        })
+        // let response = await bot.answerWebAppQuery(queryId, {
+        //     type: 'article',
+        //     id: queryId,
+        //     title: 'Success Morning',
+        //     input_message_content: {
+        //         message_text: message
+        //     }
+        // })
 
         console.log('Survey is sent - ', response)
 
@@ -67,6 +67,7 @@ app.post('/morning', upload.any(), async (req, res) => {
                 id: queryId,
                 photo_url: process.env.SERVER_HOST + '/' + req.files[0].path,
                 thumbnail_url: process.env.SERVER_HOST + '/' + req.files[0].path,
+                description: message
             })
             console.log('Image is sent - ', response)
 
