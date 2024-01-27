@@ -37,6 +37,9 @@ app.post('/morning', upload.any(), async (req, res) => {
     let {queryId, survey } = req.body;
     let { files } = req.files;
 
+    console.log(`file - : ${JSON.stringify(files)}`);
+
+
     survey = JSON.parse(survey)
     try {
 
