@@ -34,7 +34,7 @@ app.post('/morning', upload.any(), async (req, res) => {
 
     console.log(`body: ${JSON.stringify(req.body)}`);
     console.log(`files: ${JSON.stringify(req.files)}`);
-    let {queryId, survey } = req.body;
+    let { queryId, survey } = req.body;
     let { files } = req.files;
 
     console.log(`file - : ${JSON.stringify(files)}`);
@@ -60,13 +60,13 @@ app.post('/morning', upload.any(), async (req, res) => {
 
         console.log('Survey is sent - ', response)
 
-        console.log(`TEST URL = ${process.env.SERVER_HOST + '/' + files[0].path}`)
-        if (files) {
+        console.log(`TEST URL = ${process.env.SERVER_HOST + '/' + req.files[0].path}`)
+        if (req.files) {
             let response = await bot.answerWebAppQuery(queryId, {
                 type: 'photo',
                 id: queryId,
-                photo_url: process.env.SERVER_HOST + '/' + files[0].path,
-                thumbnail_url: process.env.SERVER_HOST + '/' + files[0].path,
+                photo_url: process.env.SERVER_HOST + '/' + req.files[0].path,
+                thumbnail_url: process.env.SERVER_HOST + '/' + req.files[0].path,
             })
             console.log('Image is sent - ', response)
 
