@@ -18,9 +18,7 @@ app.use(bodyParser.urlencoded({
 
 
 let storage = multer.diskStorage({
-    dest: function (req, file, cb) {
-        cb(null, './files')
-    },
+    destination: 'files/', // Location where files will be saved
     filename: function (req, file, cb) {
         cb(null, file.originalname)
     }
@@ -29,7 +27,7 @@ let upload = multer({ storage: storage })
 
 const PORT = 8080
 
-app.use(express.static(__dirname + '/public'));
+// app.use(express.static(__dirname + '/public'));
 app.use('/files', express.static('files'));
 // server
 app.use(cors())
