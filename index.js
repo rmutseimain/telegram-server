@@ -7,9 +7,21 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require("body-parser");
 const multer = require('multer');
+const axios = require('axios')
 
 const bot = new TelegramBot(TELEGRAM_TOKEN, { polling: true})
 const app = express()
+
+// healthcheck
+
+const HEALTH_CHECK_TIMEOUT = 60 * 1000;
+setInterval(healthCheck, HEALTH_CHECK_TIMEOUT)
+
+async function healthCheck() {
+    await axios.get(process.env.SERVER_HOST)
+}
+
+
 
 app.use(express.json())
 app.use(bodyParser.urlencoded({
