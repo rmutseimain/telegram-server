@@ -49,6 +49,10 @@ app.use(function(req, res, next) {
     next();
 });
 
+app.get('/', (req, res) => {
+    res.send('Main page')
+})
+
 app.post('/morning', upload.any(), async (req, res) => {
 
     console.log(`body: ${JSON.stringify(req.body)}`);
@@ -64,7 +68,7 @@ app.post('/morning', upload.any(), async (req, res) => {
         })
         console.log(message)
 
-        if (req.files) {
+        if (req.files.length > 0) {
             console.log(`TEST URL = ${process.env.SERVER_HOST + '/' + req.files[0].path}`)
 
             let response = await bot.answerWebAppQuery(queryId, {
