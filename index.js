@@ -16,9 +16,17 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-const upload = multer({
-    dest: 'files/', // Location where files will be saved
-});
+
+let storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './files')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)
+    }
+})
+let upload = multer({ storage: storage })
+
 const PORT = 8080
 
 app.use('/files', express.static('files'));
