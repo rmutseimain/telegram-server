@@ -42,10 +42,6 @@ app.post('/morning', upload.any(), async (req, res) => {
     console.log(`body: ${JSON.stringify(req.body)}`);
     console.log(`files: ${JSON.stringify(req.files)}`);
     let { queryId, survey } = req.body;
-    let { files } = req.files;
-
-    console.log(`file - : ${JSON.stringify(files)}`);
-
 
     survey = JSON.parse(survey)
     try {
@@ -56,49 +52,42 @@ app.post('/morning', upload.any(), async (req, res) => {
         })
         console.log(message)
 
-        // let response = await bot.answerWebAppQuery(queryId, {
-        //     type: 'article',
-        //     id: queryId,
-        //     title: 'Success Morning',
-        //     input_message_content: {
-        //         message_text: message
-        //     }
-        // })
-
-        // console.log('Survey is sent - ', response)
-
-        console.log(`TEST URL = ${process.env.SERVER_HOST + '/' + req.files[0].path}`)
-        let result = {
-            type: 'photo',
-            id: queryId,
-            photo_url: `${process.env.SERVER_HOST}/${req.files[0].path}`,
-            thumbnail_url: `${process.env.SERVER_HOST}/${req.files[0].path}`,
-            caption: 'message'
-        }
-        console.log('RESULT - ', JSON.stringify(result))
         if (req.files) {
-            let response = await bot.answerWebAppQuery(queryId, result)
+            console.log(`TEST URL = ${process.env.SERVER_HOST + '/' + req.files[0].path}`)
+
+            let response = await bot.answerWebAppQuery(queryId, {
+                type: 'photo',
+                id: queryId,
+                photo_url: `${process.env.SERVER_HOST}/${req.files[0].path}`,
+                thumbnail_url: `${process.env.SERVER_HOST}/${req.files[0].path}`,
+                caption:  message
+            })
             console.log('Image is sent - ', response)
-
+            return res.status(200).json({})
+        } else {
+            let response = await bot.answerWebAppQuery(queryId, {
+                type: 'article',
+                id: queryId,
+                title: 'Success Morning',
+                input_message_content: {
+                    message_text: message
+                }
+            })
+            console.log('Message is sent - ', response)
+            return res.status(200).json({})
         }
-
-
-
     } catch (e) {
-
         console.log(`ERROR - `, e)
-        // await bot.answerWebAppQuery(queryId, {
-        //     type: 'article',
-        //     id: queryId,
-        //     title: 'Failed Morning',
-        //     input_message_content: {
-        //         message_text: e
-        //     }
-        // })
-        // return res.status(500).json({})
+        await bot.answerWebAppQuery(queryId, {
+            type: 'article',
+            id: queryId,
+            title: 'Failed Morning',
+            input_message_content: {
+                message_text: e.toString()
+            }
+        })
+        return res.status(500).json({})
     }
-    return res.status(200).json({})
-
 })
 
 app.listen(PORT, () => console.log(`Sever started on port ${PORT}`))
